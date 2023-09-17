@@ -101,3 +101,9 @@ tovideo
 menu | help | info
 menu2 | audios
 
+tts <lang><text>
+g?tts2
+
+facebook | fb
+gdrive
+gitclone

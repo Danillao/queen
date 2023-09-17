@@ -132,7 +132,7 @@ const connectionOptions = {
     creds: state.creds,
     keys: makeCacheableSignalKeyStore(state.keys, pino({level: 'silent'})),
   },
-  browser: ['QueenBot', 'Safari', '1.0.0'],
+  browser: ['JOKER-BOT', 'Safari', '1.0.0'],
   version,
   defaultQueryTimeoutMs: undefined,
 };
@@ -482,7 +482,7 @@ setInterval(async () => {
   const status = global.db.data.settings[conn.user.jid] || {};
   const _uptime = process.uptime() * 1000;
   const uptime = clockString(_uptime);
-  const bio = `🤖 tempo ativo: ${uptime} ┃ 👑 ʙʏ joker ┃ 🔗 contas ᴏғᴄ: https://www.atom.bio/theshadowbrokers-team`;
+  const bio = `🤖 tempo ativo: ${uptime} ┃ 👑 ʙʏ joker ┃ 🔗 contas ᴏғᴄ: `;
   await conn.updateProfileStatus(bio).catch((_) => _);
 }, 60000);
 function clockString(ms) {
