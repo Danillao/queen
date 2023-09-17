@@ -1,10 +1,10 @@
-import gplay from "google-play-scraper";
+import gplay from 'google-play-scraper';
 
-let handler = async (m, { conn, text }) => {
-  if (!text) throw "*[❗] 𝙸𝙽𝙶𝚁𝙴𝙴𝚂𝙴 𝙴𝙻 𝙽𝙾𝙼𝙱𝚁𝙴 𝙳𝙴 𝙻𝙰 𝙰𝙿𝙺 𝚀𝚄𝙴 𝚀𝚄𝙸𝙴𝚁𝙰 𝙱𝚄𝚂𝙲𝙰𝚁*";
-  let res = await gplay.search({ term: text });
-  if (!res.length) throw `*[❗] 𝙸𝙽𝙶𝚁𝙴𝙴𝚂𝙴 𝙴𝙻 𝙽𝙾𝙼𝙱𝚁𝙴 𝙳𝙴 𝙻𝙰 𝙰𝙿𝙺 𝚀𝚄𝙴 𝚀𝚄𝙸𝙴𝚁𝙰 𝙱𝚄𝚂𝙲𝙰𝚁*`;
-  let opt = {
+const handler = async (m, {conn, text}) => {
+  if (!text) throw '*[❗] INSIRA O NOME D𝙰 𝙰𝙿𝙺 𝚀𝚄𝙴 𝚀𝚄𝙴𝚁 𝙱𝚄𝚂𝙲𝙰𝚁*';
+  let res = await gplay.search({term: text});
+  if (!res.length) throw `*[❗] INSIRA O NOME D𝙰 𝙰𝙿𝙺 𝚀𝚄𝙴 𝚀𝚄𝙴𝚁 𝙱𝚄𝚂𝙲𝙰𝚁*`;
+  const opt = {
     contextInfo: {
       externalAdReply: {
         title: res[0].title,
@@ -16,12 +16,12 @@ let handler = async (m, { conn, text }) => {
   };
   await console.log(res);
   res = res.map(
-    (v) =>
-      `*🔍 Resultado:* ${v.title}
-       *✍️ Desarrollador:* ${v.developer}
-       *💸 Precio:* ${v.priceText}
-       *📈 Puntuacion:* ${v.scoreText}
-        *⛓️ Link:* ${v.url}`
+      (v) =>
+        `*🔍 Resultado:* ${v.title}
+       *✍️ Developer:* ${v.developer}
+       *💸 Preço:* ${v.priceText}
+       *📈 Pontuaçãn:* ${v.scoreText}
+        *⛓️ Link:* ${v.url}`,
   ).join`\n\n`;
   m.reply(res, null, opt);
 };

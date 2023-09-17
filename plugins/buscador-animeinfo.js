@@ -2,7 +2,7 @@ import translate from '@vitalets/google-translate-api';
 import {Anime} from '@shineiichijo/marika';
 const client = new Anime();
 const handler = async (m, {conn, text, usedPrefix}) => {
-  if (!text) return m.reply(`*[❗𝐈𝐍𝐅𝐎❗] INGRESE EL NOMBRE DE ALGUN ANIME A BUSCAR*`);
+  if (!text) return m.reply(`*[❗𝐈𝐍𝐅𝐎❗] INSIRA O NOME DE ALGUM ANIME A BUSCAR*`);
   try {
     const anime = await client.searchAnime(text);
     const result = anime.data[0];
@@ -12,14 +12,14 @@ const handler = async (m, {conn, text, usedPrefix}) => {
 🎀 • *Título:* ${result.title}
 🎋 • *Formato:* ${result.type}
 📈 • *Estado:* ${result.status.toUpperCase().replace(/\_/g, ' ')}
-🍥 • *Episodios totales:* ${result.episodes}
-🎈 • *Duración: ${result.duration}*
-✨ • *Basado en:* ${result.source.toUpperCase()}
-💫 • *Estrenado:* ${result.aired.from}
+🍥 • *Episodios total:* ${result.episodes}
+🎈 • *Duração: ${result.duration}*
+✨ • *Lançado em:* ${result.source.toUpperCase()}
+💫 • *Estreia* ${result.aired.from}
 🎗 • *Finalizado:* ${result.aired.to}
-🎐 • *Popularidad:* ${result.popularity}
+🎐 • *Popularidade:* ${result.popularity}
 🎏 • *Favoritos:* ${result.favorites}
-🎇 • *Clasificación:* ${result.rating}
+🎇 • *Classificação:* ${result.rating}
 🏅 • *Rango:* ${result.rank}
 ♦ • *Trailer:* ${result.trailer.url}
 🌐 • *URL:* ${result.url}
@@ -27,7 +27,7 @@ const handler = async (m, {conn, text, usedPrefix}) => {
 ❄ • *Ringkasan:* ${resultes2.text}`;
     conn.sendFile(m.chat, result.images.jpg.image_url, 'error.jpg', AnimeInfo, m);
   } catch {
-    throw `*[❗] ERROR, INTENTELO DE NUEVO*`;
+    throw `*[❗] ERROR, TENTE NOVAMENTE*`;
   }
 };
 handler.command = /^(anime|animeinfo)$/i;

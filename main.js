@@ -51,7 +51,7 @@ global.prefix = new RegExp('^[' + (opts['prefix'] || '*/i!#$%+£¢€¥^°=¶∆
 
 global.db = new Low(/https?:\/\//.test(opts['db'] || '') ? new cloudDBAdapter(opts['db']) : new JSONFile(`${opts._[0] ? opts._[0] + '_' : ''}database.json`));
 
-global.DATABASE = global.db; 
+global.DATABASE = global.db;
 global.loadDatabase = async function loadDatabase() {
   if (global.db.READ) {
     return new Promise((resolve) => setInterval(async function() {
@@ -132,7 +132,7 @@ const connectionOptions = {
     creds: state.creds,
     keys: makeCacheableSignalKeyStore(state.keys, pino({level: 'silent'})),
   },
-  browser: ['MysticBot', 'Safari', '1.0.0'],
+  browser: ['QueenBot', 'Safari', '1.0.0'],
   version,
   defaultQueryTimeoutMs: undefined,
 };
@@ -140,7 +140,7 @@ const connectionOptions = {
 global.conn = makeWASocket(connectionOptions);
 conn.isInit = false;
 conn.well = false;
-conn.logger.info(`Ƈᴀʀɢᴀɴᴅᴏ．．．\n`);
+conn.logger.info(`carregando ...\n`);
 
 if (!opts['test']) {
   if (global.db) {
@@ -162,13 +162,13 @@ if (opts['server']) (await import('./server.js')).default(global.conn, PORT);
         Aunque no dudara tan solo un segundo
         que me arrepiento de ser un grasoso
         Por que la grasa es un sentimiento
-        - El waza 👻👻👻👻 (Aiden)            
-        
+        - El waza 👻👻👻👻 (Aiden)
+
    Yo tambien se hacer momazos Aiden...
         ahi te va el ajuste de los borrados
         inteligentes de las sesiones y de los sub-bot
-        By (Rey Endymion 👺👍🏼) 
-        
+        By (Rey Endymion 👺👍🏼)
+
    Ninguno es mejor que tilin god
         - atte: sk1d             */
 
@@ -184,55 +184,60 @@ function clearTmp() {
 }
 
 function purgeSession() {
-let prekey = []
-let directorio = readdirSync("./MysticSession")
-let filesFolderPreKeys = directorio.filter(file => {
-return file.startsWith('pre-key-') /*|| file.startsWith('session-') || file.startsWith('sender-') || file.startsWith('app-') */
-})
-prekey = [...prekey, ...filesFolderPreKeys]
-filesFolderPreKeys.forEach(files => {
-unlinkSync(`./MysticSession/${files}`)
-})
-} 
+  let prekey = [];
+  const directorio = readdirSync('./MysticSession');
+  const filesFolderPreKeys = directorio.filter((file) => {
+    return file.startsWith('pre-key-'); /* || file.startsWith('session-') || file.startsWith('sender-') || file.startsWith('app-') */
+  });
+  prekey = [...prekey, ...filesFolderPreKeys];
+  filesFolderPreKeys.forEach((files) => {
+    unlinkSync(`./MysticSession/${files}`);
+  });
+}
 
 function purgeSessionSB() {
-try {
-let listaDirectorios = readdirSync('./jadibts/');
-let SBprekey = []
-listaDirectorios.forEach(directorio => {
-if (statSync(`./jadibts/${directorio}`).isDirectory()) {
-let DSBPreKeys = readdirSync(`./jadibts/${directorio}`).filter(fileInDir => {
-return fileInDir.startsWith('pre-key-') /*|| fileInDir.startsWith('app-') || fileInDir.startsWith('session-')*/
-})
-SBprekey = [...SBprekey, ...DSBPreKeys]
-DSBPreKeys.forEach(fileInDir => {
-unlinkSync(`./jadibts/${directorio}/${fileInDir}`)
-})
+  try {
+    const listaDirectorios = readdirSync('./jadibts/');
+    let SBprekey = [];
+    listaDirectorios.forEach((directorio) => {
+      if (statSync(`./jadibts/${directorio}`).isDirectory()) {
+        const DSBPreKeys = readdirSync(`./jadibts/${directorio}`).filter((fileInDir) => {
+          return fileInDir.startsWith('pre-key-'); /* || fileInDir.startsWith('app-') || fileInDir.startsWith('session-')*/
+        });
+        SBprekey = [...SBprekey, ...DSBPreKeys];
+        DSBPreKeys.forEach((fileInDir) => {
+          unlinkSync(`./jadibts/${directorio}/${fileInDir}`);
+        });
+      }
+    });
+    if (SBprekey.length === 0) return; // console.log(chalk.cyanBright(`=> No hay archivos por eliminar.`))
+  } catch (err) {
+    console.log(chalk.bold.red(`=> Algo deu errado durante a eliminação, Arquivos não eliminados`));
+  }
 }
-})
-if (SBprekey.length === 0) return; //console.log(chalk.cyanBright(`=> No hay archivos por eliminar.`))
-} catch (err) {
-console.log(chalk.bold.red(`=> Algo salio mal durante la eliminación, archivos no eliminados`))
-}}
 
 function purgeOldFiles() {
-const directories = ['./MysticSession/', './jadibts/']
-const oneHourAgo = Date.now() - (60 * 60 * 1000)
-directories.forEach(dir => {
-readdirSync(dir, (err, files) => {
-if (err) throw err
-files.forEach(file => {
-const filePath = path.join(dir, file)
-stat(filePath, (err, stats) => {
-if (err) throw err;
-if (stats.isFile() && stats.mtimeMs < oneHourAgo && file !== 'creds.json') { 
-unlinkSync(filePath, err => {  
-if (err) throw err
-console.log(chalk.bold.green(`Archivo ${file} borrado con éxito`))
-})
-} else {  
-console.log(chalk.bold.red(`Archivo ${file} no borrado` + err))
-} }) }) }) })
+  const directories = ['./MysticSession/', './jadibts/'];
+  const oneHourAgo = Date.now() - (60 * 60 * 1000);
+  directories.forEach((dir) => {
+    readdirSync(dir, (err, files) => {
+      if (err) throw err;
+      files.forEach((file) => {
+        const filePath = path.join(dir, file);
+        stat(filePath, (err, stats) => {
+          if (err) throw err;
+          if (stats.isFile() && stats.mtimeMs < oneHourAgo && file !== 'creds.json') {
+            unlinkSync(filePath, (err) => {
+              if (err) throw err;
+              console.log(chalk.bold.green(`Archivo ${file} borrado con éxito`));
+            });
+          } else {
+            console.log(chalk.bold.red(`Archivo ${file} no borrado` + err));
+          }
+        });
+      });
+    });
+  });
 }
 
 async function connectionUpdate(update) {
@@ -242,45 +247,45 @@ async function connectionUpdate(update) {
   const code = lastDisconnect?.error?.output?.statusCode || lastDisconnect?.error?.output?.payload?.statusCode;
   if (code && code !== DisconnectReason.loggedOut && conn?.ws.socket == null) {
     await global.reloadHandler(true).catch(console.error);
-    //console.log(await global.reloadHandler(true).catch(console.error));
+    // console.log(await global.reloadHandler(true).catch(console.error));
     global.timestamp.connect = new Date;
   }
   if (global.db.data == null) loadDatabase();
   if (update.qr != 0 && update.qr != undefined) {
-    console.log(chalk.yellow('🚩ㅤEscanea este codigo QR, el codigo QR expira en 60 segundos.'));
+    console.log(chalk.yellow('🚩ㅤEscaneie o codigo QR, O codigo expira em 60 segundos.'));
   }
   if (connection == 'open') {
-    console.log(chalk.yellow('▣──────────────────────────────···\n│\n│❧ 𝙲𝙾𝙽𝙴𝙲𝚃𝙰𝙳𝙾 𝙲𝙾𝚁𝚁𝙴𝙲𝚃𝙰𝙼𝙴𝙽𝚃𝙴 𝙰𝙻 𝚆𝙷𝙰𝚃𝚂𝙰𝙿𝙿 ✅\n│\n▣──────────────────────────────···'));
+    console.log(chalk.yellow('▣──────────────────────────────···\n│\n│❧ 𝙲𝙾𝙽𝙴𝙲𝚃𝙰𝙳𝙾 CORRETAMENTE AO 𝚆𝙷𝙰𝚃𝚂𝙰𝙿𝙿 ✅\n│\n▣──────────────────────────────···'));
   }
-let reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
-if (connection === 'close') {
+  const reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
+  if (connection === 'close') {
     if (reason === DisconnectReason.badSession) {
-        conn.logger.error(`[ ⚠ ] Sesión incorrecta, por favor elimina la carpeta ${global.authFile} y escanea nuevamente.`);
-        //process.exit();
+      conn.logger.error(`[ ⚠ ] Session incorreta por gentileza apague ${global.authFile} e escaneie novamente.`);
+      // process.exit();
     } else if (reason === DisconnectReason.connectionClosed) {
-        conn.logger.warn(`[ ⚠ ] Conexión cerrada, reconectando...`);
-        await global.reloadHandler(true).catch(console.error);
+      conn.logger.warn(`[ ⚠ ] Conexão perdida, reconectando...`);
+      await global.reloadHandler(true).catch(console.error);
     } else if (reason === DisconnectReason.connectionLost) {
-        conn.logger.warn(`[ ⚠ ] Conexión perdida con el servidor, reconectando...`);
-        await global.reloadHandler(true).catch(console.error);
+      conn.logger.warn(`[ ⚠ ] Conexão perdida com o servidor, reconectando...`);
+      await global.reloadHandler(true).catch(console.error);
     } else if (reason === DisconnectReason.connectionReplaced) {
-        conn.logger.error(`[ ⚠ ] Conexión reemplazada, se ha abierto otra nueva sesión. Por favor, cierra la sesión actual primero.`);
-        //process.exit();
+      conn.logger.error(`[ ⚠ ] Conexão restaurada, caso tenha aberto uma nova sessão. Por favor, encerre a sessão atual primeiro`);
+      // process.exit();
     } else if (reason === DisconnectReason.loggedOut) {
-        conn.logger.error(`[ ⚠ ] Conexion cerrada, por favor elimina la carpeta ${global.authFile} y escanea nuevamente.`);
-        //process.exit();
+      conn.logger.error(`[ ⚠ ] Conexão perdida, por favor apague a pasta ${global.authFile} e escaneie novamente.`);
+      // process.exit();
     } else if (reason === DisconnectReason.restartRequired) {
-        conn.logger.info(`[ ⚠ ] Reinicio necesario, reinicie el servidor si presenta algún problema.`);
-        await global.reloadHandler(true).catch(console.error);
+      conn.logger.info(`[ ⚠ ] Reinicio necessario, reinicie o servidor se apresenta algum problema.`);
+      await global.reloadHandler(true).catch(console.error);
     } else if (reason === DisconnectReason.timedOut) {
-        conn.logger.warn(`[ ⚠ ] Tiempo de conexión agotado, reconectando...`);
-        await global.reloadHandler(true).catch(console.error);
+      conn.logger.warn(`[ ⚠ ] Tempo de conexão esgotado, reconectando...`);
+      await global.reloadHandler(true).catch(console.error);
     } else {
-        conn.logger.warn(`[ ⚠ ] Razón de desconexión desconocida. ${reason || ''}: ${connection || ''}`);
-        await global.reloadHandler(true).catch(console.error);
+      conn.logger.warn(`[ ⚠ ] Razão da conexão desconhecida. ${reason || ''}: ${connection || ''}`);
+      await global.reloadHandler(true).catch(console.error);
     }
-}
-  /*if (connection == 'close') {
+  }
+  /* if (connection == 'close') {
     console.log(chalk.yellow(`🚩ㅤConexion cerrada, por favor borre la carpeta ${global.authFile} y reescanee el codigo QR`));
   }*/
 }
@@ -315,14 +320,14 @@ global.reloadHandler = async function(restatConn) {
     conn.ev.off('creds.update', conn.credsUpdate);
   }
 
-  conn.welcome = '*╔══════════════*\n*╟❧ @subject*\n*╠══════════════*\n*╟❧ @user*\n*╟❧ 𝙱𝙸𝙴𝙽𝚅𝙴𝙽𝙸𝙳𝙾/𝙰* \n*║*\n*╟❧ 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝙲𝙸𝙾𝙽 𝙳𝙴𝙻 𝙶𝚁𝚄𝙿𝙾:*\n\n@desc\n\n*║*\n*╟❧ 𝙳𝙸𝚂𝙵𝚁𝚄𝚃𝙰 𝚃𝚄 𝙴𝚂𝚃𝙰𝙳𝙸𝙰!!*\n*╚══════════════*';
-  conn.bye = '*╔══════════════*\n*╟❧ @user*\n*╟❧ 𝙷𝙰𝚂𝚃𝙰 𝙿𝚁𝙾𝙽𝚃𝙾 👋🏻* \n*╚══════════════*';
-  conn.spromote = '*@user 𝚂𝙴 𝚂𝚄𝙼𝙰 𝙰𝙻 𝙶𝚁𝚄𝙿𝙾 𝙳𝙴 𝙰𝙳𝙼𝙸𝙽𝚂!!*';
-  conn.sdemote = '*@user 𝙰𝙱𝙰𝙽𝙳𝙾𝙽𝙰 𝙴𝙻 𝙶𝚁𝚄𝙿𝙾 𝙳𝙴 𝙰𝙳𝙼𝙸𝙽𝚂 !!*';
-  conn.sDesc = '*𝚂𝙴 𝙷𝙰 𝙼𝙾𝙳𝙸𝙵𝙸𝙲𝙰𝙳𝙾 𝙻𝙰 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝙲𝙸𝙾𝙽 𝙳𝙴𝙻 𝙶𝚁𝚄𝙿𝙾*\n\n*𝙽𝚄𝙴𝚅𝙰 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝙲𝙸𝙾𝙽:* @desc';
-  conn.sSubject = '*𝚂𝙴 𝙷𝙰 𝙼𝙾𝙳𝙸𝙵𝙸𝙲𝙰𝙳𝙾 𝙴𝙻 𝙽𝙾𝙼𝙱𝚁𝙴 𝙳𝙴𝙻 𝙶𝚁𝚄𝙿𝙾*\n*𝙽𝚄𝙴𝚅𝙾 𝙽𝙾𝙼𝙱𝚁𝙴:* @subject';
-  conn.sIcon = '*𝚂𝙴 𝙷𝙰 𝙲𝙰𝙼𝙱𝙸𝙰𝙳𝙾 𝙻𝙰 𝙵𝙾𝚃𝙾 𝙳𝙴𝙻 𝙶𝚁𝚄𝙿𝙾!!*';
-  conn.sRevoke = '*𝚂𝙴 𝙷𝙰 𝙰𝙲𝚃𝚄𝙰𝙻𝙸𝚉𝙰𝙳𝙾 𝙴𝙻 𝙻𝙸𝙽𝙺 𝙳𝙴𝙻 𝙶𝚁𝚄𝙿𝙾!!*\n*𝙻𝙸𝙽𝙺 𝙽𝚄𝙴𝚅𝙾:* @revoke';
+  conn.welcome = '*╔══════════════*\n*╟❧ @subject*\n*╠══════════════*\n*╟❧ @user*\n*╟❧ BEM VINDO /𝙰* \n*║*\n*╟❧ DESCRIÇÃO DO 𝙶𝚁𝚄𝙿𝙾:*\n\n@desc\n\n*║*\n*╟❧ DESFRUTE SUA 𝙴𝚂𝚃𝙰𝙳𝙸𝙰!!*\n*╚══════════════*';
+  conn.bye = '*╔══════════════*\n*╟❧ @user*\n*╟❧ ESTA 𝙿𝚁𝙾𝙽𝚃𝙾 👋🏻* \n*╚══════════════*';
+  conn.spromote = '*@user ENTROU PARA O 𝙶𝚁𝚄𝙿𝙾 𝙳𝙴 𝙰𝙳𝙼𝙸𝙽𝚂!!*';
+  conn.sdemote = '*@user SAIU DO 𝙶𝚁𝚄𝙿𝙾 𝙳𝙴 𝙰𝙳𝙼𝙸𝙽𝚂 !!*';
+  conn.sDesc = '*FOI 𝙼𝙾𝙳𝙸𝙵𝙸𝙲𝙰𝙳𝙾 A DESCRIÇÃO DO 𝙶𝚁𝚄𝙿𝙾*\n\n*𝙽OVA DESCRIÇÃO:* @desc';
+  conn.sSubject = '*FOI MODIFICADO O NOME DO 𝙶𝚁𝚄𝙿𝙾*\n*NOVO 𝙽𝙾𝙼𝙴:* @subject';
+  conn.sIcon = '*FOI MODIFICADO A 𝙵𝙾𝚃𝙾 𝙳O 𝙶𝚁𝚄𝙿𝙾!!*';
+  conn.sRevoke = '*FOI ATUALIZADO O 𝙻𝙸𝙽𝙺 DO 𝙶𝚁𝚄𝙿𝙾!!*\n*𝙻𝙸𝙽𝙺 NOVO:* @revoke';
 
   conn.handler = handler.handler.bind(global.conn);
   conn.participantsUpdate = handler.participantsUpdate.bind(global.conn);
@@ -455,29 +460,29 @@ async function _quickTest() {
 setInterval(async () => {
   if (stopped === 'close' || !conn || !conn.user) return;
   const a = await clearTmp();
-  console.log(chalk.cyanBright(`\n▣───────────[ 𝙰𝚄𝚃𝙾𝙲𝙻𝙴𝙰𝚁TMP ]──────────────···\n│\n▣─❧ 𝙰𝚁𝙲𝙷𝙸𝚅𝙾𝚂 𝙴𝙻𝙸𝙼𝙸𝙽𝙰𝙳𝙾𝚂 ✅\n│\n▣───────────────────────────────────────···\n`));
+  console.log(chalk.cyanBright(`\n▣───────────[ 𝙰𝚄𝚃𝙾𝙲𝙻𝙴𝙰𝚁TMP ]──────────────···\n│\n▣─❧ ARQUIVOS ELIMINADOS ✅\n│\n▣───────────────────────────────────────···\n`));
 }, 180000);
 setInterval(async () => {
   if (stopped === 'close' || !conn || !conn.user) return;
   await purgeSession();
-  console.log(chalk.cyanBright(`\n▣────────[ AUTOPURGESESSIONS ]───────────···\n│\n▣─❧ ARCHIVOS ELIMINADOS ✅\n│\n▣────────────────────────────────────···\n`));
+  console.log(chalk.cyanBright(`\n▣────────[ AUTOPURGESESSIONS ]───────────···\n│\n▣─❧ ARQUIVOS ELIMINADOS ✅\n│\n▣────────────────────────────────────···\n`));
 }, 1000 * 60 * 60);
 setInterval(async () => {
   if (stopped === 'close' || !conn || !conn.user) return;
   await purgeSessionSB();
-  console.log(chalk.cyanBright(`\n▣────────[ AUTO_PURGE_SESSIONS_SUB-BOTS ]───────────···\n│\n▣─❧ ARCHIVOS ELIMINADOS ✅\n│\n▣────────────────────────────────────···\n`));
+  console.log(chalk.cyanBright(`\n▣────────[ AUTO_PURGE_SESSIONS_SUB-BOTS ]───────────···\n│\n▣─❧ ARQUIVOS ELIMINADOS ✅\n│\n▣────────────────────────────────────···\n`));
 }, 1000 * 60 * 60);
 setInterval(async () => {
   if (stopped === 'close' || !conn || !conn.user) return;
   await purgeOldFiles();
-  console.log(chalk.cyanBright(`\n▣────────[ AUTO_PURGE_OLDFILES ]───────────···\n│\n▣─❧ ARCHIVOS ELIMINADOS ✅\n│\n▣────────────────────────────────────···\n`));
+  console.log(chalk.cyanBright(`\n▣────────[ AUTO_PURGE_OLDFILES ]───────────···\n│\n▣─❧ ARQUIVOS ELIMINADOS ✅\n│\n▣────────────────────────────────────···\n`));
 }, 1000 * 60 * 60);
 setInterval(async () => {
   if (stopped === 'close' || !conn || !conn.user) return;
   const status = global.db.data.settings[conn.user.jid] || {};
   const _uptime = process.uptime() * 1000;
   const uptime = clockString(_uptime);
-  const bio = `🤖 ᴛɪᴇᴍᴘᴏ ᴀᴄᴛɪᴠᴏ: ${uptime} ┃ 👑 ʙʏ ʙʀᴜɴᴏ sᴏʙʀɪɴᴏ ┃ 🔗 ᴄᴜᴇɴᴛᴀs ᴏғᴄ: https://www.atom.bio/theshadowbrokers-team`;
+  const bio = `🤖 tempo ativo: ${uptime} ┃ 👑 ʙʏ joker ┃ 🔗 contas ᴏғᴄ: https://www.atom.bio/theshadowbrokers-team`;
   await conn.updateProfileStatus(bio).catch((_) => _);
 }, 60000);
 function clockString(ms) {

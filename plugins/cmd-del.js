@@ -1,11 +1,11 @@
 const handler = async (m, {conn, usedPrefix, text, command}) => {
   let hash = text;
   if (m.quoted && m.quoted.fileSha256) hash = m.quoted.fileSha256.toString('hex');
-  if (!hash) throw `*[❗𝐈𝐍𝐅𝐎❗] 𝚂𝙾𝙻𝙾 𝚂𝙴 𝙿𝚄𝙴𝙳𝙴𝙽 𝙰𝚂𝙸𝙶𝙽𝙰𝚁 𝚃𝙴𝚇𝚃𝙾𝚂 𝙾 𝙲𝙾𝙼𝙰𝙽𝙳𝙾𝚂 𝙰𝚂𝙸𝙶𝙽𝙰𝙳𝙾𝚂 𝙰 𝚂𝚃𝙸𝙲𝙺𝙴𝚁𝚂 𝙾 𝙸𝙼𝙰𝙶𝙴𝙽𝙴𝚂, 𝙿𝙰𝚁𝙰 𝙾𝙱𝚃𝙴𝙽𝙴𝚁 𝙴𝙻 𝙲𝙾𝙳𝙸𝙶𝙾 𝙰𝚂𝙸𝙶𝙽𝙰𝙳𝙾 𝚄𝚂𝙴 𝙴𝙻 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 ${usedPrefix}listcmd*`;
+  if (!hash) throw `*[❗𝐈𝐍𝐅𝐎❗] 𝚂𝙾 PODE DISPARAR 𝙲𝙾𝙼𝙰𝙽𝙳𝙾𝚂 𝙾U 𝚃𝙴𝚇𝚃𝙾𝚂 𝙰 FIGURINHAS 𝙴 𝙸𝙼𝙰𝙶𝙴𝙽𝚂, 𝙿𝙰𝚁𝙰 OBTER O 𝙲𝙾𝙳𝙸𝙶𝙾 𝙰𝚂SINADO 𝚄𝚂𝙴 O 𝙲𝙾𝙼𝙰𝙽𝙳𝙾 ${usedPrefix}listcmd*`;
   const sticker = global.db.data.sticker;
-  if (sticker[hash] && sticker[hash].locked) throw '*[❗𝐈𝐍𝐅𝐎❗] 𝚂𝙾𝙻𝙾 𝙴𝙻 𝙾𝚆𝙽𝙴𝚁 𝙿𝚄𝙴𝙳𝙴 𝚁𝙴𝙰𝙻𝙸𝚉𝙰𝚁 𝙻𝙰 𝙴𝙻𝙸𝙼𝙸𝙽𝙰𝙲𝙸𝙾𝙽*';
+  if (sticker[hash] && sticker[hash].locked) throw '*[❗𝐈𝐍𝐅𝐎❗] 𝚂OMENTE O 𝙾𝚆𝙽𝙴𝚁 𝙿ODE REALIZAR 𝙰 𝙴𝙻𝙸𝙼𝙸𝙽𝙰ÇÃO*';
   delete sticker[hash];
-  m.reply(`*[ ✔ ] 𝙴𝙻 𝚃𝙴𝚇𝚃𝙾/𝙲𝙾𝙼𝙰𝙽𝙳𝙾 𝙰𝚂𝙸𝙶𝙽𝙰𝙳𝙾 𝙰𝙻 𝚂𝚃𝙸𝙲𝙺𝙴𝚁/𝙸𝙼𝙰𝙶𝙴𝙽 𝙵𝚄𝙴 𝙴𝙻𝙸𝙼𝙸𝙽𝙰𝙳𝙾 𝙳𝙴 𝙻𝙰 𝙱𝙰𝚂𝙴 𝙳𝙴 𝙳𝙰𝚃𝙾𝚂 𝙲𝙾𝚁𝚁𝙴𝙲𝚃𝙰𝙼𝙴𝙽𝚃𝙴*`);
+  m.reply(`*[ ✔ ] O 𝚃𝙴𝚇𝚃𝙾/𝙲𝙾𝙼𝙰𝙽𝙳𝙾 DISPARADO A FIGURINHA/𝙸𝙼𝙰𝙶𝙴M 𝙵OI ELIMINADO NA 𝙱𝙰𝚂𝙴 𝙳𝙴 𝙳𝙰D𝙾𝚂 𝙲𝙾𝚁𝚁𝙴𝚃𝙰𝙼𝙴𝙽𝚃E*`);
 };
 handler.command = ['delcmd'];
 handler.rowner = true;

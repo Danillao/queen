@@ -42,7 +42,7 @@ global.APIs = {
   vihangayt: 'https://vihangayt.me',
   erdwpe: 'https://api.erdwpe.com',
   xyroinee: 'https://api.xyroinee.xyz',
-  nekobot: 'https://nekobot.xyz'
+  nekobot: 'https://nekobot.xyz',
 },
 global.APIKeys = {
   'https://api.xteam.xyz': `${keysxteam}`,
@@ -54,7 +54,7 @@ global.APIKeys = {
   'https://api.ibeng.tech/docs': 'tamvan',
   'https://api.itsrose.site': 'Rs-Zeltoria',
   'https://api-xcoders.site': 'Frieren',
-  'https://api.xyroinee.xyz': 'uwgflzFEh6'
+  'https://api.xyroinee.xyz': 'uwgflzFEh6',
 };
 
 /** ************************/
@@ -72,23 +72,23 @@ global.rpg = {
       exp: '⚡ Experiencia',
       bank: '🏦 Banco',
       diamond: '💎 Diamante',
-      health: '❤️ Salud',
+      health: '❤️ Saúde',
       kyubi: '🌀 Magia',
       joincount: '🪙 Token',
       emerald: '💚 Esmeralda',
       stamina: '✨ Energía',
       role: '💪 Rango',
       premium: '🎟️ Premium',
-      pointxp: '📧 Puntos Exp',
-      gold: '👑 Oro',
+      pointxp: '📧 Pontos Exp',
+      gold: '👑 Ouro',
       trash: '🗑 Basura',
       crystal: '🔮 Cristal',
       intelligence: '🧠 Inteligencia',
-      string: '🕸️ Cuerda',
-      keygold: '🔑 Llave de Oro',
-      keyiron: '🗝️ Llave de Hierro',
+      string: '🕸️ Corda',
+      keygold: '🔑 Llave de Ouro',
+      keyiron: '🗝️ Llave de Ferro',
       emas: '🪅 Piñata',
-      fishingrod: '🎣 Caña de Pescar',
+      fishingrod: '🎣 Isca de Pescar',
       gems: '🍀 Gemas',
       magicwand: '⚕️ Varita Mágica',
       mana: '🪄 Hechizo',
